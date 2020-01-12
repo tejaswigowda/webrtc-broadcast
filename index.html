@@ -298,7 +298,10 @@
                     };
                      constraints = {
                             audio: false,
-                            video: true
+                            video: true,
+                            optional: [
+                                { frameRate: 60 }
+                            ]
                         };
                     
                     if (constraints) mediaConfig.constraints = constraints;
