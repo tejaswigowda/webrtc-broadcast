@@ -69,7 +69,7 @@ var broadcast = function(config) {
         var peerConfig = {
             constraints: {
                 mandatory: {
-                    OfferToReceiveAudio: true,
+                    OfferToReceiveAudio: false,
                     OfferToReceiveVideo: true
                 },
                 optional: []
