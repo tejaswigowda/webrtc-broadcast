@@ -296,6 +296,11 @@
                             } else alert('unable to get access to your webcam');
                         }
                     };
+                     constraints = {
+                            audio: false,
+                            video: true
+                        };
+                    
                     if (constraints) mediaConfig.constraints = constraints;
                     getUserMedia(mediaConfig);
                 }
