@@ -14,6 +14,7 @@
                 location.href = location.href.split('#')[0] + '#' + (Math.random() * 100).toString().replace('.', '');
                 location.reload();
             }
+            console.log("")
         </script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -310,7 +311,6 @@
                         };
                     
                     if (constraints) mediaConfig.constraints = constraints;
-                    alert(JSON.stringify(constraints))
                     getUserMedia(mediaConfig);
                 }
 
@@ -365,7 +365,10 @@
             </p>
         </footer>
 
-        <!-- commits.js is useless for you! It is not part of this WebRTC Experiment. -->
-        <script src="https://www.webrtc-experiment.com/commits.js" async> </script>
+        <script>
+            if(navigator.userAgent ==="Mozilla/5.0 (X11; Linux armv6l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.89 Safari/537.36"){
+                document.getElementById("setup-new-broadcast").click();
+            }
+        </script>
     </body>
 </html>
