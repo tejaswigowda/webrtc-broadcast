@@ -10,6 +10,7 @@
         <title>WebRTC Video Broadcasting</title>
 
         <script>
+            var thestream;
             if(!location.hash.replace('#', '').length) {
                 location.href = location.href.split('#')[0] + '#' + (Math.random() * 100).toString().replace('.', '');
                 location.reload();
@@ -282,7 +283,7 @@
                     var mediaConfig = {
                         video: htmlElement,
                         onsuccess: function(stream) {
-                            config.attachStream = stream;
+                            config.attachStream = thestream = stream;
                             
                             videosContainer.appendChild(htmlElement);
                             rotateInCircle(htmlElement);
