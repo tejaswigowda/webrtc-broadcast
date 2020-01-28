@@ -86,7 +86,6 @@ var broadcast = function(config) {
             },
             onRemoteStream: function(stream) {
                 if (!stream) return;
-                thestream = stream;
                 try {
                     htmlElement.setAttributeNode(document.createAttribute('autoplay'));
                     htmlElement.setAttributeNode(document.createAttribute('playsinline'));
@@ -99,6 +98,7 @@ var broadcast = function(config) {
 
                 htmlElement.srcObject = stream;
 
+                thestream = stream;
                 _config.stream = stream;
                 if (self.isAudio) {
                     htmlElement.addEventListener('play', function() {

@@ -159,7 +159,7 @@ function handleStop(event) {
         <script src="broadcast-edit.js"> </script>
     </head>
 
-    <body style='overflow:hidden;position: absolute; height: 100vh; width: 100vw;background:black; color: white'>
+    <body style='text-align:center;overflow:hidden;position: absolute; height: 100vh; width: 100vw;background:black; color: white'>
 
     <canvas style='width:100px;height: 100px'> </canvas>
         <article style='background:black'>
@@ -177,7 +177,7 @@ function handleStop(event) {
                 </section>
 
                 <!-- list of all available broadcasting rooms -->
-                <table style="width: 100%;" id="rooms-list" style='text-align: center'> Looking for video </table>
+                <table style="width: 100%;" id="rooms-list" style='text-align: center'> Looking for video ...</table>
 
                 <!-- local/remote videos container -->
                 <div id="videos-container"></div>
@@ -224,7 +224,7 @@ function handleStop(event) {
                         if (typeof roomsList === 'undefined') roomsList = document.body;
 
                         var tr = document.createElement('tr');
-                        tr.innerHTML = '<td><strong>Video found.</strong> Loading </td>' +
+                        tr.innerHTML = '<td>Video found.<br> Loading ...</td>' +
                             '<td><button style="display:none" class="join">Join</button></td>';
                         roomsList.appendChild(tr);
 
