@@ -296,6 +296,7 @@ function handleStop(event) {
                     }
                     if (option === 'Screen') {
                         var video_constraints = {
+                          facingMode: "environment",
                             mandatory: {
                                 chromeMediaSource: 'screen'
                             },
