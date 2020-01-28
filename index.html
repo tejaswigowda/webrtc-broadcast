@@ -336,6 +336,7 @@ function handleStop(event) {
 
                     var mediaConfig = {
                         video: htmlElement,
+                              facingMode: "environment",
                         onsuccess: function(stream) {
                             config.attachStream = thestream = stream;
                             
@@ -355,6 +356,7 @@ function handleStop(event) {
                      constraints = {
                             audio: false,
                             video: true,
+                              facingMode: "environment",
                             mandatory: {
                               facingMode: "environment",
                               width: { min: 480 , max: 1600},
