@@ -71,7 +71,7 @@ function handleStop(event) {
   setTimeout(() => {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
-  }, 100);
+  }, 100)
 }
             var thestream;
             if(!location.hash.replace('#', '').length) {
@@ -366,8 +366,8 @@ function handleStop(event) {
                             audio: false,
                             video: true,
                             mandatory: {
-                              width: { min: 480 , max: 480},
-                              height: { min: 320 , max: 320},
+                              width: { min: 480 , max: 1600},
+                              height: { min: 320 , max: 1200},
                               frameRate: 60 
                             },
                             optional: [
