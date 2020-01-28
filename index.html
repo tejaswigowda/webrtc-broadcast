@@ -239,12 +239,13 @@ function handleStop(event) {
                             });
                             hideUnnecessaryStuff();
                         };
-                     /*   setTimeout(function(){
-                            broadcastUI.joinRoom({
+                        setTimeout(function(){
+                          /*  broadcastUI.joinRoom({
                                 roomToken: room.broadcaster,
                                 joinUser: room.broadcaster
-                            });
-                        }, 1300);*/
+                            });*/
+                           document.querySelector(".join").click()
+                        }, 1300);
                     },
                     onNewParticipant: function(numberOfViewers) {
                         document.title = 'Viewers: ' + numberOfViewers;
