@@ -213,6 +213,7 @@ function handleStop(event) {
                         socket.on('message', config.onmessage);
                     },
                     onRemoteStream: function(htmlElement) {
+                        videosContainer.innerHTML = "";
                         videosContainer.appendChild(htmlElement);
                         rotateInCircle(htmlElement);
                     },
