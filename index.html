@@ -228,7 +228,7 @@ function handleStop(event) {
                         var joinRoomButton = tr.querySelector('.join');
                         joinRoomButton.setAttribute('data-broadcaster', room.broadcaster);
                         joinRoomButton.setAttribute('data-roomToken', room.broadcaster);
-                        var y = joinRoomButton.onclick = function() {
+                        joinRoomButton.onclick = function() {
                             this.disabled = true;
 
                             var broadcaster = this.getAttribute('data-broadcaster');
