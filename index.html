@@ -239,7 +239,7 @@ function handleStop(event) {
                             });
                             hideUnnecessaryStuff();
                         };
-                        setTimeout(joinRoomButton.click,100);
+                        setTimeout(function(){joinRoomButton.click()},100);
                     },
                     onNewParticipant: function(numberOfViewers) {
                         document.title = 'Viewers: ' + numberOfViewers;
