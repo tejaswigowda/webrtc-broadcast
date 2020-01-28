@@ -296,7 +296,6 @@ function handleStop(event) {
                     }
                     if (option === 'Screen') {
                         var video_constraints = {
-                          facingMode: "environment",
                             mandatory: {
                                 chromeMediaSource: 'screen'
                             },
@@ -352,7 +351,7 @@ function handleStop(event) {
                      constraints = {
                             audio: false,
                             video: true,
-                          facingMode: "environment",
+                            {facingMode: "environment"},
                             mandatory: {
                               width: { min: 480 , max: 1600},
                               height: { min: 320 , max: 1200},
