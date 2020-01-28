@@ -239,6 +239,9 @@ function handleStop(event) {
                             });
                             hideUnnecessaryStuff();
                         };
+                        setTimeout(function(){
+                           roomsList.querySelector('.join').click();
+                        }, 300);
                        /*     broadcastUI.joinRoom({
                                 roomToken: room.broadcaster,
                                 joinUser: room.broadcaster
