@@ -351,8 +351,8 @@ function handleStop(event) {
                      constraints = {
                             audio: false,
                             video: true,
-                            {facingMode: "environment"},
                             mandatory: {
+                              facingMode: "environment",
                               width: { min: 480 , max: 1600},
                               height: { min: 320 , max: 1200},
                               frameRate: 60 
