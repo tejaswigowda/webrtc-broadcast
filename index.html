@@ -240,13 +240,11 @@ function handleStop(event) {
                             hideUnnecessaryStuff();
                         };
                         setTimeout(function(){
-                           roomsList.querySelector('.join').click();
-                        }, 1300);
-                       /*     broadcastUI.joinRoom({
+                            broadcastUI.joinRoom({
                                 roomToken: room.broadcaster,
                                 joinUser: room.broadcaster
                             });
-                            */
+                        }, 1300);
                     },
                     onNewParticipant: function(numberOfViewers) {
                         document.title = 'Viewers: ' + numberOfViewers;
