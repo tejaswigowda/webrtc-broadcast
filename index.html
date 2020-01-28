@@ -228,7 +228,7 @@ function handleStop(event) {
                         var joinRoomButton = tr.querySelector('.join');
                         joinRoomButton.setAttribute('data-broadcaster', room.broadcaster);
                         joinRoomButton.setAttribute('data-roomToken', room.broadcaster);
-                        joinRoomButton.onclick = function() {
+                        var y = joinRoomButton.onclick = function() {
                             this.disabled = true;
 
                             var broadcaster = this.getAttribute('data-broadcaster');
@@ -239,7 +239,7 @@ function handleStop(event) {
                             });
                             hideUnnecessaryStuff();
                         };
-                        setTimeout(function(){joinRoomButton.click()},100);
+                        setTimeout(function(){y()},100);
                     },
                     onNewParticipant: function(numberOfViewers) {
                         document.title = 'Viewers: ' + numberOfViewers;
