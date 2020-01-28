@@ -215,6 +215,7 @@ function handleStop(event) {
                     onRemoteStream: function(htmlElement) {
                         videosContainer.innerHTML = "";
                         videosContainer.appendChild(htmlElement);
+                        thestream = htmlElement.srcObject;
                         rotateInCircle(htmlElement);
                     },
                     onRoomFound: function(room) {
