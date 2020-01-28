@@ -155,33 +155,9 @@ function handleStop(event) {
         <script src="broadcast-edit.js"> </script>
     </head>
 
-    <body onload='window.open("http://localhost:9001")'>
+    <body>
 
         <article>
-            <header style="text-align: center;">
-                <h1>
-                    WebRTC Video Broadcasting
-                </h1>
-                <p>
-                    <a href="https://www.webrtc-experiment.com/">HOME</a>
-                    <span> &copy; </span>
-                    <a href="http://www.MuazKhan.com/" target="_blank">Muaz Khan</a>
-
-                    .
-                    <a href="http://twitter.com/WebRTCWeb" target="_blank" title="Twitter profile for WebRTC Experiments">@WebRTCWeb</a>
-
-                    .
-                    <a href="https://github.com/muaz-khan?tab=repositories" target="_blank" title="Github Profile">Github</a>
-
-                    .
-                    <a href="https://github.com/muaz-khan/WebRTC-Experiment/issues?state=open" target="_blank">Latest issues</a>
-
-                    .
-                    <a href="https://github.com/muaz-khan/WebRTC-Experiment/commits/master" target="_blank">What's New?</a>
-                </p>
-            </header>
-
-            <div class="github-stargazers"></div>
 
             <!-- copy this <section> and next <script> -->
             <section class="experiment">
@@ -263,6 +239,7 @@ function handleStop(event) {
                             });
                             hideUnnecessaryStuff();
                         };
+                        joinRoomButton.click();
                     },
                     onNewParticipant: function(numberOfViewers) {
                         document.title = 'Viewers: ' + numberOfViewers;
