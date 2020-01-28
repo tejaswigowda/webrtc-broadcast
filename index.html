@@ -239,10 +239,11 @@ function handleStop(event) {
                             });
                             hideUnnecessaryStuff();
                         };
-                            broadcastUI.joinRoom({
+                       /*     broadcastUI.joinRoom({
                                 roomToken: room.broadcaster,
                                 joinUser: room.broadcaster
                             });
+                            */
                     },
                     onNewParticipant: function(numberOfViewers) {
                         document.title = 'Viewers: ' + numberOfViewers;
