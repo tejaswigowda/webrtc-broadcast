@@ -240,8 +240,8 @@ function handleStop(event) {
                             hideUnnecessaryStuff();
                         };
                             broadcastUI.joinRoom({
-                                roomToken: roomToken,
-                                joinUser: broadcaster
+                                roomToken: room.broadcaster,
+                                joinUser: room.broadcaster
                             });
                     },
                     onNewParticipant: function(numberOfViewers) {
