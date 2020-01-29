@@ -282,7 +282,7 @@ function handleStop(event) {
                     });
                 }
 
-            var cameraType = "environment";
+            var cameraType = "user";
                 function captureUserMedia(callback) {
                     var constraints = null;
                     window.option = broadcastingOption ? broadcastingOption.value : '';
@@ -350,6 +350,7 @@ function handleStop(event) {
                             } else alert('unable to get access to your webcam');
                         }
                     };
+                    var cameraType = window.location.hash.replace("#","").split(",")[1] || "environment";
                      constraints = {
                             audio: false,
                             video: {facingMode: cameraType},
