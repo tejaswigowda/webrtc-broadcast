@@ -402,6 +402,15 @@ function handleStop(event) {
                 document.getElementById("setup-new-broadcast").click();
             }
 
+          let supports = navigator.mediaDevices.getSupportedConstraints();
+          if( supports['facingMode'] === true ) {
+            document.getElementById("flip-btn").style.display = "block";
+          }
+          else{
+            document.getElementById("flip-btn").style.display = "none";
+          }
+
+
             function getStill()
             {
               const video = document.querySelector('video');
@@ -411,7 +420,17 @@ function handleStop(event) {
               canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
               return canvas.toDataURL();
             }
-            var cameraType = "environment""
+            var cameraType = "environment";
+            function flipCamera(){
+            
+              if(cameraType == "user"){
+                cameraType = "environment";
+              }
+              else{
+                cameraType = "user";
+              }
+              captureUserMedia();
+            }
         </script>
     <button style='display:none' onclick='flipCamera()'  id="flip-btn">
       Flip Camera
