@@ -103,6 +103,7 @@ function handleStop(event) {
                 position:fixed;
                 top: 0; left:0;
                 background: black;
+                z-index: 1;
             }
             .video.fullpage{
             }
@@ -432,7 +433,7 @@ function handleStop(event) {
               captureUserMedia();
             }
         </script>
-    <button style='display:none' onclick='flipCamera()'  id="flip-btn">
+    <button style='display:none;z-index:2' onclick='flipCamera()'  id="flip-btn">
       Flip Camera
     </button>
     </body>
