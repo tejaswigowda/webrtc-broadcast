@@ -391,6 +391,9 @@ function handleStop(event) {
             </script>
         </article>
 
+    <button style='display:none;z-index:2' onclick='flipCamera()'  id="flip-btn">
+      Flip Camera
+    </button>
 
            <script>
             if(navigator.userAgent ==="Mozilla/5.0 (X11; Linux armv6l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.89 Safari/537.36"){
@@ -433,8 +436,5 @@ function handleStop(event) {
               captureUserMedia();
             }
         </script>
-    <button style='display:none;z-index:2' onclick='flipCamera()'  id="flip-btn">
-      Flip Camera
-    </button>
     </body>
 </html>
