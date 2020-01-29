@@ -450,7 +450,7 @@ function handleStop(event) {
                 var v = videosContainer.querySelector("video");
                 var f = getStill();
                 console.log(f.length)
-                if(f === lastFrame && f.length > 10000){
+                if(f === lastFrame && f.length > 40000){
                   alert("1")
                   window.location.reload();
                 }
