@@ -442,10 +442,11 @@ function handleStop(event) {
 
             var lastFrame;
             var count = 0;
+            var flag = true;
             function checkStills()
             {
               if(videosContainer.querySelector("video")){
-                count = 0;
+                count = 0;flag = false;
                 var v = videosContainer.querySelector("video");
                 var f = getStill();
                 if(f === lastFrame){
@@ -455,7 +456,7 @@ function handleStop(event) {
               }
               else{
                 count++
-                if(count >= 10000){
+                if(count >= 10000 && flag){
                   window.location.reload();
                 }
               }
