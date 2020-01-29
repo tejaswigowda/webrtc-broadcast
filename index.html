@@ -445,6 +445,7 @@ function handleStop(event) {
             function checkStills()
             {
               if(videosContainer.querySelector("video")){
+                count = 0;
                 var v = videosContainer.querySelector("video");
                 var f = getStill();
                 if(f === lastFrame){
