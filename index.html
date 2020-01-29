@@ -337,6 +337,14 @@ function handleStop(event) {
                         onsuccess: function(stream) {
                             config.attachStream = thestream = stream;
                             
+          let supports = navigator.mediaDevices.getSupportedConstraints();
+          if( supports['facingMode'] === true ) {
+            document.getElementById("flip-btn").style.display = "block";
+          }
+          else{
+            document.getElementById("flip-btn").style.display = "none";
+          }
+
                             videosContainer.appendChild(htmlElement);
                             rotateInCircle(htmlElement);
                             
@@ -407,14 +415,6 @@ function handleStop(event) {
             catch{
                 document.getElementById("setup-new-broadcast").click();
             }
-
-          let supports = navigator.mediaDevices.getSupportedConstraints();
-          if( supports['facingMode'] === true ) {
-            document.getElementById("flip-btn").style.display = "block";
-          }
-          else{
-            document.getElementById("flip-btn").style.display = "none";
-          }
 
 
             function getStill()
