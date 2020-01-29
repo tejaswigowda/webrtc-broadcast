@@ -444,13 +444,13 @@ function handleStop(event) {
             function checkStills()
             {
               if(videosContainer.querySelector("video")){
-                console.log();
                 var v = videosContainer.querySelector("video");
                 var f = getStill();
                 if(f === lastFrame){
                   window.location.reload();
                 }
                 lastFrame = f;
+                console.log(lastFrame);
               }
             }
         </script>
