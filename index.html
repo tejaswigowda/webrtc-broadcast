@@ -416,7 +416,7 @@ function handleStop(event) {
             catch{
                 document.getElementById("setup-new-broadcast").click();
             }
-
+              setTimeout("checkStills()", 500);
 
             function getStill()
             {
@@ -440,7 +440,6 @@ function handleStop(event) {
               window.location.reload();
             }
 
-            setTimeout("checkStills()", 500);
             var lastFrame;
             function checkStills()
             {
