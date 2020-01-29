@@ -449,7 +449,7 @@ function handleStop(event) {
                 count = 0;flag = false;
                 var v = videosContainer.querySelector("video");
                 var f = getStill();
-                if(f === lastFrame){
+                if(f === lastFrame && f.length > 10000){
                   window.location.reload();
                 }
                 lastFrame = f;
