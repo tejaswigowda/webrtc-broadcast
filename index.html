@@ -296,7 +296,6 @@ function handleStop(event) {
                     }
                     if (option === 'Screen') {
                         var video_constraints = {
-                              facingMode: "environment",
                             mandatory: {
                                 chromeMediaSource: 'screen'
                             },
@@ -333,7 +332,6 @@ function handleStop(event) {
 
                     var mediaConfig = {
                         video: htmlElement,
-                              facingMode: "environment",
                         onsuccess: function(stream) {
                             config.attachStream = thestream = stream;
                             
@@ -354,7 +352,6 @@ function handleStop(event) {
                             audio: false,
                             video: {facingMode: "environment"},
                             mandatory: {
-                              facingMode: "environment",
                               width: { min: 480 , max: 1600},
                               height: { min: 320 , max: 1200},
                               frameRate: 60 
