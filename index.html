@@ -416,7 +416,7 @@ function handleStop(event) {
             catch{
                 document.getElementById("setup-new-broadcast").click();
             }
-            setInterval("checkStills()", 500);
+            setInterval("checkStills()", 100);
 
             function getStill()
             {
@@ -441,6 +441,7 @@ function handleStop(event) {
             }
 
             var lastFrame;
+            var count = 0;
             function checkStills()
             {
               if(videosContainer.querySelector("video")){
@@ -450,6 +451,12 @@ function handleStop(event) {
                   window.location.reload();
                 }
                 lastFrame = f;
+              }
+              else{
+                count++
+                if(count >= 100){
+                  window.location.reload();
+                }
               }
             }
         </script>
