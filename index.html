@@ -351,9 +351,8 @@ function handleStop(event) {
                         }
                     };
                      constraints = {
-                              facingMode: "environment",
                             audio: false,
-                            video: true,
+                            video: {facingMode: "environment"},
                             mandatory: {
                               facingMode: "environment",
                               width: { min: 480 , max: 1600},
