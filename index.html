@@ -466,7 +466,7 @@ function handleStop(event) {
                 frameLen.shift();
                 frameLen.push(f.length);
                 console.log(f.length)
-                if(isArraySame() && !transmit){
+                if(!transmit && isArraySame()){
                   relFlag = true;
                   window.location.reload();
                   
