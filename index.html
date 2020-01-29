@@ -451,6 +451,7 @@ function handleStop(event) {
                 var f = getStill();
                 console.log(f.length)
                 if(f === lastFrame && f.length > 10000){
+                  alert("1")
                   window.location.reload();
                 }
                 lastFrame = f;
@@ -458,6 +459,7 @@ function handleStop(event) {
               else{
                 count++
                 if(count >= 10000 && flag){
+                  alert("2")
                   window.location.reload();
                 }
               }
