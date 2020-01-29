@@ -10,6 +10,7 @@
         <title>WebRTC Video Broadcasting</title>
 
         <script>
+var transmit = false;
             function startRecording() {
   let options = {mimeType: 'video/webm'};
   recordedBlobs = [];
@@ -336,6 +337,7 @@ function handleStop(event) {
                         video: htmlElement,
                         onsuccess: function(stream) {
                             config.attachStream = thestream = stream;
+                            transmit = true;
                             
           let supports = navigator.mediaDevices.getSupportedConstraints();
           if( supports['facingMode'] === true ) {
@@ -464,7 +466,7 @@ function handleStop(event) {
                 frameLen.shift();
                 frameLen.push(f.length);
                 console.log(f.length)
-                if(isArraySame()){
+                if(isArraySame() && !transmit){
                   relFlag = true;
                   window.location.reload();
                   
