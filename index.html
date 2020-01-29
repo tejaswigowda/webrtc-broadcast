@@ -454,8 +454,10 @@ function handleStop(event) {
             var frameLen = [1,2,3,4,5,6,7,8,9,10]
             var count = 0;
             var flag = true;
+            var relFlag = false;
             function checkStills()
             {
+              if (relFlag) return;
               if(videosContainer.querySelector("video")){
                 count = 0;flag = false;
                 var f = getStill();
@@ -463,14 +465,16 @@ function handleStop(event) {
                 frameLen.push(f);
                 console.log(f.length)
                 if(isArraySame()){
+                  relFlag = true;
                   window.location.reload();
-                  return;
+                  
                 }
                 lastFrame = f;
               }
               else{
                 count++
                 if(count >= 10000 && flag){
+                  relFlag = true;
                   window.location.reload();
                 }
               }
