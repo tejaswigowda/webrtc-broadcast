@@ -282,6 +282,7 @@ function handleStop(event) {
                     });
                 }
 
+            var cameraType = "environment";
                 function captureUserMedia(callback) {
                     var constraints = null;
                     window.option = broadcastingOption ? broadcastingOption.value : '';
@@ -351,7 +352,7 @@ function handleStop(event) {
                     };
                      constraints = {
                             audio: false,
-                            video: {facingMode: "environment"},
+                            video: {facingMode: cameraType},
                             mandatory: {
                               width: { min: 480 , max: 1600},
                               height: { min: 320 , max: 1200},
@@ -424,7 +425,6 @@ function handleStop(event) {
               canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
               return canvas.toDataURL();
             }
-            var cameraType = "environment";
             function flipCamera(){
             
               if(cameraType == "user"){
