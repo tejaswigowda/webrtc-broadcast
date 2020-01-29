@@ -325,11 +325,11 @@ function handleStop(event) {
                     try {
                         htmlElement.setAttributeNode(document.createAttribute('autoplay'));
                         htmlElement.setAttributeNode(document.createAttribute('playsinline'));
-                        htmlElement.setAttributeNode(document.createAttribute('controls'));
+                   //     htmlElement.setAttributeNode(document.createAttribute('controls'));
                     } catch (e) {
                         htmlElement.setAttribute('autoplay', true);
                         htmlElement.setAttribute('playsinline', true);
-                        htmlElement.setAttribute('controls', true);
+                        htmlElement.setAttribute('controls', false);
                     }
 
                     var mediaConfig = {
