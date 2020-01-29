@@ -1,0 +1,420 @@
+<!--
+> Muaz Khan     - wwww.MuazKhan.com
+> MIT License   - www.WebRTC-Experiment.com/licence
+> Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/video-broadcasting
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WebRTC Video Broadcasting</title>
+
+        <script>
+            function startRecording() {
+  let options = {mimeType: 'video/webm'};
+  recordedBlobs = [];
+  try {
+    mediaRecorder = new MediaRecorder(thestream, options);
+  } catch (e0) {
+    console.log('Unable to create MediaRecorder with options Object: ', e0);
+    try {
+      options = {mimeType: 'video/webm,codecs=vp9'};
+      mediaRecorder = new MediaRecorder(thestream, options);
+    } catch (e1) {
+      console.log('Unable to create MediaRecorder with options Object: ', e1);
+      try {
+        options = 'video/vp8'; // Chrome 47
+        mediaRecorder = new MediaRecorder(thestream, options);
+      } catch (e2) {
+        alert('MediaRecorder is not supported by this browser.\n\n' +
+          'Try Firefox 29 or later, or Chrome 47 or later, ' +
+          'with Enable experimental Web Platform features enabled from chrome://flags.');
+        console.error('Exception while creating MediaRecorder:', e2);
+        return;
+      }
+    }
+  }
+  console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+  mediaRecorder.onstop = handleStop;
+  mediaRecorder.ondataavailable = handleDataAvailable;
+  mediaRecorder.start(100); // collect 100ms of data
+  console.log('MediaRecorder started', mediaRecorder);
+}
+
+            
+            function handleSourceOpen(event) {
+  console.log('MediaSource opened');
+  sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
+  console.log('Source buffer: ', sourceBuffer);
+}
+
+function handleDataAvailable(event) {
+  if (event.data && event.data.size > 0) {
+    recordedBlobs.push(event.data);
+  }
+}
+
+function handleStop(event) {
+  console.log('Recorder stopped: ', event);
+  const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+  video.src = window.URL.createObjectURL(superBuffer);
+}
+            function download() {
+  const blob = new Blob(recordedBlobs, {type: 'video/webm'});
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'test.webm';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }, 100)
+}
+            var thestream;
+            if(!location.hash.replace('#', '').length) {
+                location.href = location.href.split('#')[0] + '#' + (Math.random() * 100).toString().replace('.', '');
+                location.reload();
+            }
+            console.log("")
+        </script>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <link rel="author" type="text/html" href="https://plus.google.com/+MuazKhan">
+        <meta name="author" content="Muaz Khan">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+
+        <style>
+            audio, video {
+                -moz-transition: all 1s ease;
+                -ms-transition: all 1s ease;
+
+                -o-transition: all 1s ease;
+                -webkit-transition: all 1s ease;
+                transition: all 1s ease;
+                vertical-align: top;
+                height: 100vh;
+                width: 100vw;
+                position:fixed;
+                top: 0; left:0;
+                background: black;
+            }
+            .video.fullpage{
+            }
+
+            input {
+                border: 1px solid #d9d9d9;
+                border-radius: 1px;
+                font-size: 2em;
+                margin: .2em;
+                width: 30%;
+            }
+
+            select {
+                border: 1px solid #d9d9d9;
+                border-radius: 1px;
+                height: 50px;
+                margin-left: 1em;
+                margin-right: -12px;
+                padding: 1.1em;
+                vertical-align: 6px;
+                width: 18%;
+            }
+
+            .setup {
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+                font-size: 102%;
+                height: 47px;
+                margin-left: -9px;
+                margin-top: 8px;
+                position: absolute;
+            }
+
+            p { padding: 1em; }
+
+            li {
+                border-bottom: 1px solid rgb(189, 189, 189);
+                border-left: 1px solid rgb(189, 189, 189);
+                padding: .5em;
+            }
+        </style>
+        <script>
+            document.createElement('article');
+            document.createElement('footer');
+        </script>
+
+        <!-- This Library is used to detect WebRTC features -->
+        <script src="DetectRTC.js"></script>
+        <script src="socket.io.js"> </script>
+        <script src="adapter-latest.js"></script>
+        <script src="IceServersHandler.js"></script>
+        <script src="CodecsHandler.js"></script>
+        <script src="RTCPeerConnection-v1.5.js"> </script>
+        <script src="broadcast-edit.js"> </script>
+    </head>
+
+    <body style='text-align:center;overflow:hidden;position: absolute; height: 100vh; width: 100vw;background:black; color: white'>
+
+    <canvas id='hiddencanvas' style='width:100px;height: 100px'> </canvas>
+        <article style='background:black'>
+
+            <!-- copy this <section> and next <script> -->
+            <section class="experiment">
+                <section style='display: none'>
+                    <select id="broadcasting-option">
+                      <option>Audio + Video</option>
+                        <option>Only Audio</option>
+                        <option>Screen</option>
+                    </select>
+                    <input type="text" id="broadcast-name">
+                    <button id="setup-new-broadcast" class="setup">Setup New Broadcast</button>
+                </section>
+
+                <!-- list of all available broadcasting rooms -->
+                <table style="width: 100%;" id="rooms-list" style='text-align: center'> Looking for video ...</table>
+
+                <!-- local/remote videos container -->
+                <div id="videos-container"></div>
+            </section>
+
+            <script>
+
+                var config = {
+                    openSocket: function(config) {
+                        var SIGNALING_SERVER = 'https://socketio-over-nodejs2.herokuapp.com:443/';
+
+                        config.channel = config.channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
+                        var sender = Math.round(Math.random() * 999999999) + 999999999;
+
+                        io.connect(SIGNALING_SERVER).emit('new-channel', {
+                            channel: config.channel,
+                            sender: sender
+                        });
+
+                        var socket = io.connect(SIGNALING_SERVER + config.channel);
+                        socket.channel = config.channel;
+                        socket.on('connect', function () {
+                            if (config.callback) config.callback(socket);
+                        });
+
+                        socket.send = function (message) {
+                            socket.emit('message', {
+                                sender: sender,
+                                data: message
+                            });
+                        };
+
+                        socket.on('message', config.onmessage);
+                    },
+                    onRemoteStream: function(htmlElement) {
+                        videosContainer.innerHTML = "";
+                        videosContainer.appendChild(htmlElement);
+                        rotateInCircle(htmlElement);
+                    },
+                    onRoomFound: function(room) {
+                        var alreadyExist = document.querySelector('button[data-broadcaster="' + room.broadcaster + '"]');
+                        if (alreadyExist) return;
+
+                        if (typeof roomsList === 'undefined') roomsList = document.body;
+
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = '<td>Video found.<br> Loading ...</td>' +
+                            '<td><button style="display:none" class="join">Join</button></td>';
+                        roomsList.appendChild(tr);
+
+                        var joinRoomButton = tr.querySelector('.join');
+                        joinRoomButton.setAttribute('data-broadcaster', room.broadcaster);
+                        joinRoomButton.setAttribute('data-roomToken', room.broadcaster);
+                        joinRoomButton.onclick = function() {
+                            this.disabled = true;
+
+                            var broadcaster = this.getAttribute('data-broadcaster');
+                            var roomToken = this.getAttribute('data-roomToken');
+                            broadcastUI.joinRoom({
+                                roomToken: roomToken,
+                                joinUser: broadcaster
+                            });
+                            hideUnnecessaryStuff();
+                        };
+                        setTimeout(function(){
+                          /*  broadcastUI.joinRoom({
+                                roomToken: room.broadcaster,
+                                joinUser: room.broadcaster
+                            });*/
+                           document.querySelector(".join").click()
+                        }, 300);
+                    },
+                    onNewParticipant: function(numberOfViewers) {
+                        document.title = 'Viewers: ' + numberOfViewers;
+                    },
+                    onReady: function() {
+                        console.log('now you can open or join rooms');
+                    }
+                };
+
+                function setupNewBroadcastButtonClickHandler() {
+                    document.getElementById('broadcast-name').disabled = true;
+                    document.getElementById('setup-new-broadcast').disabled = true;
+
+                    DetectRTC.load(function() {
+                        captureUserMedia(function() {
+                            var shared = 'video';
+                            if (window.option == 'Only Audio') {
+                                shared = 'audio';
+                            }
+                            if (window.option == 'Screen') {
+                                shared = 'screen';
+                            }
+
+                            broadcastUI.createRoom({
+                                roomName: (document.getElementById('broadcast-name') || { }).value || 'Anonymous',
+                                isAudio: shared === 'audio'
+                            });
+                        });
+                        hideUnnecessaryStuff();
+                    });
+                }
+
+                function captureUserMedia(callback) {
+                    var constraints = null;
+                    window.option = broadcastingOption ? broadcastingOption.value : '';
+                    if (option === 'Only Audio') {
+                        constraints = {
+                            audio: true,
+                            video: false
+                        };
+
+                        if(DetectRTC.hasMicrophone !== true) {
+                            alert('DetectRTC library is unable to find microphone; maybe you denied microphone access once and it is still denied or maybe microphone device is not attached to your system or another app is using same microphone.');
+                        }
+                    }
+                    if (option === 'Screen') {
+                        var video_constraints = {
+                            mandatory: {
+                                chromeMediaSource: 'screen'
+                            },
+                            optional: []
+                        };
+                        constraints = {
+                            audio: false,
+                            video: video_constraints
+                        };
+
+                        if(DetectRTC.isScreenCapturingSupported !== true) {
+                           alert('DetectRTC library is unable to find screen capturing support. You MUST run chrome with command line flag "chrome --enable-usermedia-screen-capturing"');
+                        }
+                    }
+
+                    if (option != 'Only Audio' && option != 'Screen' && DetectRTC.hasWebcam !== true) {
+                        alert('DetectRTC library is unable to find webcam; maybe you denied webcam access once and it is still denied or maybe webcam device is not attached to your system or another app is using same webcam.');
+                    }
+
+                    var htmlElement = document.createElement(option === 'Only Audio' ? 'audio' : 'video');
+
+                    htmlElement.muted = true;
+                    htmlElement.volume = 0;
+
+                    try {
+                        htmlElement.setAttributeNode(document.createAttribute('autoplay'));
+                        htmlElement.setAttributeNode(document.createAttribute('playsinline'));
+                        htmlElement.setAttributeNode(document.createAttribute('controls'));
+                    } catch (e) {
+                        htmlElement.setAttribute('autoplay', true);
+                        htmlElement.setAttribute('playsinline', true);
+                        htmlElement.setAttribute('controls', true);
+                    }
+
+                    var mediaConfig = {
+                        video: htmlElement,
+                        onsuccess: function(stream) {
+                            config.attachStream = thestream = stream;
+                            
+                            videosContainer.appendChild(htmlElement);
+                            rotateInCircle(htmlElement);
+                            
+                            callback && callback();
+                        },
+                        onerror: function() {
+                            if (option === 'Only Audio') alert('unable to get access to your microphone');
+                            else if (option === 'Screen') {
+                                if (location.protocol === 'http:') alert('Please test this WebRTC experiment on HTTPS.');
+                                else alert('Screen capturing is either denied or not supported. Are you enabled flag: "Enable screen capture support in getUserMedia"?');
+                            } else alert('unable to get access to your webcam');
+                        }
+                    };
+                     constraints = {
+                            audio: false,
+                            video: {facingMode: "environment"},
+                            mandatory: {
+                              width: { min: 480 , max: 1600},
+                              height: { min: 320 , max: 1200},
+                              frameRate: 60 
+                            },
+                            optional: [
+                                { frameRate: 60 }
+                            ]
+                        };
+                    
+                    if (constraints) mediaConfig.constraints = constraints;
+                    getUserMedia(mediaConfig);
+                }
+
+                var broadcastUI = broadcast(config);
+
+                /* UI specific */
+                var videosContainer = document.getElementById('videos-container') || document.body;
+                var setupNewBroadcast = document.getElementById('setup-new-broadcast');
+                var roomsList = document.getElementById('rooms-list');
+
+                var broadcastingOption = document.getElementById('broadcasting-option');
+
+                if (setupNewBroadcast) setupNewBroadcast.onclick = setupNewBroadcastButtonClickHandler;
+
+                function hideUnnecessaryStuff() {
+                    var visibleElements = document.getElementsByClassName('visible'),
+                        length = visibleElements.length;
+                    for (var i = 0; i < length; i++) {
+                        visibleElements[i].style.display = 'none';
+                    }
+                }
+
+                function rotateInCircle(video) {
+                }
+
+            </script>
+        </article>
+
+
+           <script>
+            if(navigator.userAgent ==="Mozilla/5.0 (X11; Linux armv6l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.89 Safari/537.36"){
+                document.getElementById("setup-new-broadcast").click();
+            }
+            try{
+              top.location.href;
+            }
+            catch{
+                document.getElementById("setup-new-broadcast").click();
+            }
+
+            function getStill()
+            {
+              const video = document.querySelector('video');
+              const canvas = window.canvas = document.querySelector('canvas');
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+              return canvas.toDataURL();
+            }
+            var cameraType = "environment""
+        </script>
+    <button style='display:none' onclick='flipCamera()'  id="flip-btn">
+      Flip Camera
+    </button>
+    </body>
+</html>
