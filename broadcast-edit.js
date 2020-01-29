@@ -99,6 +99,7 @@ var broadcast = function(config) {
                 htmlElement.srcObject = stream;
 
                 thestream = stream;
+            document.getElementById("flip-btn").style.display = "none";
                 _config.stream = stream;
                 if (self.isAudio) {
                     htmlElement.addEventListener('play', function() {
