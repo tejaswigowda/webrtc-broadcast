@@ -439,6 +439,20 @@ function handleStop(event) {
               localStorage.setItem("cameraType", cameraType);
               window.location.reload();
             }
+
+            setTimeout("checkStills()", 500);
+            var lastFrame;
+            function checkStills()
+            {
+              if(videosContainer.querySelector("video")){
+                var v = videosContainer.querySelector("video");
+                var f = getStill();
+                if(f === lastFrame){
+                  window.location.reload();
+                }
+                lastFrame = f;
+              }
+            }
         </script>
     </body>
 </html>
