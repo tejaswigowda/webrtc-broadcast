@@ -350,7 +350,7 @@ function handleStop(event) {
                             } else alert('unable to get access to your webcam');
                         }
                     };
-                    var cameraType = localStorage.getItem("cameraType") || "environment"
+                    cameraType = localStorage.getItem("cameraType") || "environment"
                      constraints = {
                             audio: false,
                             video: {facingMode: cameraType},
@@ -427,14 +427,16 @@ function handleStop(event) {
               return canvas.toDataURL();
             }
             function flipCamera(){
-            
+              cameraType = localStorage.getItem("cameraType") || "environment"
               if(cameraType == "user"){
                 cameraType = "environment";
               }
               else{
                 cameraType = "user";
               }
-              captureUserMedia();
+              
+              localStorage.setItem("cameraType", cameraType);
+              window.location.reload();
             }
         </script>
     </body>
