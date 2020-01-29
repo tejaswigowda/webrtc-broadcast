@@ -416,7 +416,7 @@ function handleStop(event) {
             catch{
                 document.getElementById("setup-new-broadcast").click();
             }
-              setTimeout("checkStills()", 500);
+            setTimeout("checkStills()", 500);
 
             function getStill()
             {
@@ -444,6 +444,7 @@ function handleStop(event) {
             function checkStills()
             {
               if(videosContainer.querySelector("video")){
+                console.log();
                 var v = videosContainer.querySelector("video");
                 var f = getStill();
                 if(f === lastFrame){
